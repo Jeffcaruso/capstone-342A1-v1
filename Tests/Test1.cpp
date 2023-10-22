@@ -20,7 +20,7 @@ TEST(Test1, StartingEmpty)
 	EXPECT_EQ(pdx.size(), 0);
 	EXPECT_EQ(pdx.empty(), 0);
 
-	strs << pdx;
+	strstr << pdx;
 	EXPECT_EQ(strs.str(), "[]");
 
 }
