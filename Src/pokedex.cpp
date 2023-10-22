@@ -1,5 +1,10 @@
 #include "Inc/pokedex.h"
 
+Pokedex::Pokedex()
+{
+    msize = 0;
+}
+
 int Pokedex::size() const
 {
     return 0;
