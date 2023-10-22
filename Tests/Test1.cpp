@@ -20,8 +20,9 @@ TEST(Test1, StartingEmpty)
 	EXPECT_EQ(pdx.size(), 0);
 	EXPECT_EQ(pdx.empty(), 0);
 
-	strstr << pdx;
-	EXPECT_EQ(strs.str(), "[]");
+	ostringstream outStrStr;
+	outStrStr << pdx;
+	EXPECT_EQ(outStrStr.str(), "[]");
 
 }
 
