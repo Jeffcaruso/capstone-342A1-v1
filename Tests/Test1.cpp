@@ -38,6 +38,7 @@ TEST(Test1, CheckOutStr4Empty)
 	//check output is an empty set "[]" as expected
 	ostringstream outStrStr;
 	outStrStr << pdx;
-	//EXPECT_EQ(outStrStr.str(), "[]");
-	EXPECT_STREQ((char*) outStrStr.str(), "[]");
+	string emptySet = "[]";
+	EXPECT_EQ(outStrStr.str(), emptySet);
+	//EXPECT_STREQ((char*) outStrStr.str(), "[]");
 }
