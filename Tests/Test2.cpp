@@ -7,7 +7,6 @@
 //============================================================================
 
 #include <gtest/gtest.h>
-#include "Inc/Source1.h"
 #include "Inc/pokedex.h"
 
 using namespace std;
@@ -22,6 +21,7 @@ TEST(Test2, Add1Pokemon)
 	//Make Pokedex class pdx
 	Pokedex pdx;
 
+	//string stream for output testing
 	stringstream strs;
 
 	pdx.insert("Pikachu");
@@ -33,7 +33,9 @@ TEST(Test2, Add1Pokemon)
 	EXPECT_FALSE(pdx.empty());
 
 	//expect Pikachu to be at index 0 after adding it
-	EXPECT_EQ(pdx.at(0), "Pikachu");
+	//have comparison be against a std string
+	string Pika = "Pikachu";
+	EXPECT_EQ(pdx.at(0), Pika);
 
 	//expect with only 1 item for front to equal back
 	EXPECT_EQ(pdx.front(), pdx.back());
@@ -42,8 +44,10 @@ TEST(Test2, Add1Pokemon)
 	strs.str("");
 	//test output operator
 	strs << pdx;
+	//have comparison be against a std string
+	string PikaSet = "[Pikachu]";
 	//check the output operator was correct
-	EXPECT_EQ(strs.str(), "[Pikachu]");
+	EXPECT_EQ(strs.str(), PikaSet);
 }
 
 //this test has no reason to be split into multiple sections to feasibly provide 

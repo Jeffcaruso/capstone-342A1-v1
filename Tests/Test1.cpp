@@ -7,7 +7,6 @@
 //============================================================================
 
 #include <gtest/gtest.h>
-#include "Inc/Source1.h"
 #include "Inc/pokedex.h"
 
 using namespace std;
@@ -38,7 +37,8 @@ TEST(Test1, CheckOutStr4Empty)
 	//check output is an empty set "[]" as expected
 	ostringstream outStrStr;
 	outStrStr << pdx;
+	//for comparisons, make the c strings to a std::string, 
+		// since Pokedex is storing as std::string.
 	string emptySet = "[]";
 	EXPECT_EQ(outStrStr.str(), emptySet);
-	//EXPECT_STREQ((char*) outStrStr.str(), "[]");
 }

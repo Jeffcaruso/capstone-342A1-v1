@@ -6,21 +6,50 @@
 //============================================================================
 
 #include <gtest/gtest.h>
-#include "Inc/Source1.h"
+#include "Inc/pokedex.h"
 
 using namespace std;
 
-TEST(Test1, ReturnHelloWorld)
+TEST(Test3, LifecycleFor2PokemonEntries)
 {
-	ASSERT_TRUE(HelloWorld());
-}
+	//Make Pokedex class pdx
+	Pokedex pdx;
 
-TEST(Test2, TestFailure)
-{
-	ASSERT_TRUE(true); // to make it pass, change it from false to true.
-}
+	//string stream for output testing
+	stringstream strs;
 
-TEST(Test3, TestPass)
-{
-	ASSERT_TRUE(true);
+	//insert 2 Pokemon, Pikachu first
+	pdx.insert("Pikachu");
+	pdx.insert("Charmander");
+
+	//check its size 2 as expected after 2 adds
+	EXPECT_EQ(pdx.size(), 2);
+
+	//verifying front and back (2 and only 2 entries present)
+	EXPECT_EQ(pdx.at(0), pdx.front());
+	EXPECT_EQ(pdx.at(1), pdx.back());
+
+	//init str stream to empty
+	strs.str("");
+	//load output to str stream
+	strs << pdx;
+	//string of expected output for comparison
+	string expectedOutput1 = "[Charmander, Pikachu]";
+	//check output is expected result
+	EXPECT_EQ(strs.str(), expectedOutput1);
+
+
+	//now being erasing and verifying that is working as expected...
+	//erase front (b/c alpha order, delete charamander)
+	pdx.erase(0);
+	EXPECT_EQ(pdx.front(), pdx.back());
+
+	//set str stream to empty
+	strs.str("");
+	//load in output
+	strs << pdx;
+	//string of expected output for comparison
+	string expectedOutput2 = "[Pikachu]";
+	//check output is expected result
+	EXPECT_EQ(strs.str(), expectedOutput2);
 }

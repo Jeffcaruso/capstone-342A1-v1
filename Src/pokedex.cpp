@@ -26,8 +26,8 @@ ostream &operator<<(ostream &out, const Pokedex &pdx)
 // Pokemon is not inserted if Pokedex is already full
 void Pokedex::insert(const string &pokemon)
 {
-    //do nothing...
-    //student code to actually do the work here...
+    // do nothing...
+    // student code to actually do the work here...
 }
 
 // return pokemon at given index
@@ -38,16 +38,23 @@ const string &Pokedex::at(int n) const
     return "LOL1";
 }
 
-  // return pokemon at the front, alphabetically first one
-  const string &Pokedex::front() const
-  {
+// return pokemon at the front, alphabetically first one
+const string &Pokedex::front() const
+{
     // do nothing, return a string that shouldn't be a pokemon name...
     return "LOL2";
-  }
+}
 
-  // return pokemon at the front, alphabetically last one
-  const string &Pokedex::back() const
-  {
+// return pokemon at the front, alphabetically last one
+const string &Pokedex::back() const
+{
     // do nothing, return a string that shouldn't be a pokemon name...
     return "LOL3";
-  }
+}
+
+// Erase element at location, move other elements as needed
+// undefined behaviour if given index is not valid
+void Pokedex::erase(int n)
+{
+    // do nothing
+}
