@@ -1,6 +1,7 @@
 //============================================================================
-// Name        : Test2
-// Test Desc.  : trivial test that is still using the 'student' code
+// Name        : Test1
+// Test Desc.  : Test that the methods to determine empty are correct
+//				 	(coverage for old test 1 method) the 'student' code
 // Author      : Jeffrey Caruso
 // Date    	   : Fall 2023
 //============================================================================
