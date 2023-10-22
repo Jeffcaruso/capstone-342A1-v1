@@ -1,6 +1,7 @@
 //============================================================================
 // Name        : Test2
-// Test Desc.  : trivial test that is still using the 'student' code
+// Test Desc.  : Testing student access input Sanitization
+//				 	(coverage for old test 5 method)
 // Author      : Jeffrey Caruso
 // Date    	   : Fall 2023
 //============================================================================

@@ -1,7 +1,7 @@
 //============================================================================
 // Name        : Test2
 // Test Desc.  : Test that add + remove work properly for 3 items
-//				 	(coverage for old test 3 method)
+//				 	(coverage for old test 4 method)
 // Author      : Jeffrey Caruso
 // Date    	   : Fall 2023
 //============================================================================

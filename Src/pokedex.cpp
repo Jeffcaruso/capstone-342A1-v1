@@ -58,3 +58,9 @@ void Pokedex::erase(int n)
 {
     // do nothing
 }
+
+// Delete the last element
+void Pokedex::pop_back()
+{
+    // do nothing
+}
