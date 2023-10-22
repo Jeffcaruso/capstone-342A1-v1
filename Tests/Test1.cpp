@@ -7,20 +7,30 @@
 
 #include <gtest/gtest.h>
 #include "Inc/Source1.h"
+#include "Inc/pokedex.h"
 
 using namespace std;
 
-TEST(Test1, ReturnHelloWorld)
+TEST(Test1, StartingEmpty)
 {
-	ASSERT_TRUE(HelloWorld());
+	//ASSERT_TRUE(HelloWorld());
+	Pokedex pdx;
+
+	//check it starts empty as expected
+	EXPECT_EQ(pdx.size(), 0);
+	EXPECT_EQ(pdx.empty(), 0);
+
+	strs << pdx;
+	EXPECT_EQ(strs.str(), "[]");
+
 }
 
-TEST(Test2, TestFailure)
-{
-	ASSERT_TRUE(true); // to make it pass, change it from false to true.
-}
+// TEST(Test1, TestFailure)
+// {
+// 	ASSERT_TRUE(true); // to make it pass, change it from false to true.
+// }
 
-TEST(Test3, TestPass)
-{
-	ASSERT_TRUE(true);
-}
+// TEST(Test1, TestPass)
+// {
+// 	ASSERT_TRUE(true);
+// }
