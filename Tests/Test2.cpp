@@ -12,6 +12,11 @@
 
 using namespace std;
 
+//note / reminder:
+// use EXPECT_EQ (or _NE) for std::string
+// for c strings, use EXPECT_STREQ (or STRNE)
+// http://google.github.io/googletest/reference/assertions.html
+
 TEST(Test2, Add1Pokemon)
 {
 	//Make Pokedex class pdx
