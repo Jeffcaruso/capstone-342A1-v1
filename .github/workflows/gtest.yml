@@ -1,0 +1,123 @@
+name: GTest
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+  Run_Test_1:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+    - name: Run Test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --test_output=all //Tests:APP_test
+  Run_Test_2:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+    - name: Run Test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --test_output=all //Tests:APP_test_2
+  Run_Test_3:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+    - name: Run Test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --test_output=all //Tests:APP_test_3
+  Run_Test_4:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+    - name: Run Test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --test_output=all //Tests:APP_test_4
+  Run_Test_5:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone GTest
+      run:  git clone https://github.com/google/googletest.git
+    - name: Install gtest manually
+      working-directory: ./googletest
+      run:  sudo apt install python3-pip &&
+            cmake . &&
+            make &&
+            sudo make install
+    - name: Install Bazel
+      run:  sudo apt install nodejs &&
+            sudo npm install -g @bazel/bazelisk
+    - uses: actions/checkout@v1
+    - name: Run Test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --test_output=all //Tests:APP_test_5
+
+      #Note to add /remove tests:
+      # 1) make the job here Run_Test_#
+      # 2) copy the content from one of the run tests (not build)
+      # 3) modify the Build file in the testing folder that holds these test scripts.
+
+      # additional note, user code expected in: Src, Inc
+
+      
