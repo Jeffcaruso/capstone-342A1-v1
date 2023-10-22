@@ -1,6 +1,7 @@
 //============================================================================
 // Name        : Test2
-// Test Desc.  : trivial test that is still using the 'student' code
+// Test Desc.  : Test that add + remove work properly for 2 items
+//				 	(coverage for old test 3 method)
 // Author      : Jeffrey Caruso
 // Date    	   : Fall 2023
 //============================================================================
