@@ -1,16 +1,16 @@
 #include "Inc/pokedex.h"
 
-const int Pokedex::size()
+int Pokedex::size() const
 {
     return 0;
 }
 
-const bool Pokedex::empty()
+bool Pokedex::empty() const
 {
     return false;
 }
 
 ostream &operator<<(ostream &out, const Pokedex &pdx)
 {
-    cout << "not correct result (intentional)" << endl;
+    return cout << "not correct result (intentional)" << endl;
 }
