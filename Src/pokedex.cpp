@@ -17,5 +17,6 @@ bool Pokedex::empty() const
 
 ostream &operator<<(ostream &out, const Pokedex &pdx)
 {
-    return cout << "not correct result (intentional)" << endl;
+    out << "not correct result (intentional)\n";
+    return out;
 }

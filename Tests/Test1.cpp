@@ -13,57 +13,29 @@ using namespace std;
 
 TEST(Test1, CheckSize4Empty)
 {
-	//ASSERT_TRUE(HelloWorld());
+	//Make Pokedex class pdx
 	Pokedex pdx;
 
-	//check it starts empty as expected
+	//check it starts with size 0 as expected
 	EXPECT_EQ(pdx.size(), 0);
-	// EXPECT_EQ(pdx.empty(), 0);
-
-	// ostringstream outStrStr;
-	// outStrStr << pdx;
-	// EXPECT_EQ(outStrStr.str(), "[]");
-
 }
 
 TEST(Test1, CheckEmpty4Empty)
 {
-	//ASSERT_TRUE(HelloWorld());
+	//Make Pokedex class pdx
 	Pokedex pdx;
 
-	//check it starts empty as expected
-	//EXPECT_EQ(pdx.size(), 0);
+	//Check empty method. expecting it to be empty
 	EXPECT_EQ(pdx.empty(), 0);
-
-	// ostringstream outStrStr;
-	// outStrStr << pdx;
-	// EXPECT_EQ(outStrStr.str(), "[]");
-
 }
 
 TEST(Test1, CheckOutStr4Empty)
-{
-	//ASSERT_TRUE(HelloWorld());
+{	
+	//Make Pokedex class pdx
 	Pokedex pdx;
 
-	//check it starts empty as expected
-	// EXPECT_EQ(pdx.size(), 0);
-	// EXPECT_EQ(pdx.empty(), 0);
-
+	//check output is an empty set "[]" as expected
 	ostringstream outStrStr;
 	outStrStr << pdx;
 	EXPECT_EQ(outStrStr.str(), "[]");
-
 }
-
-
-
-// TEST(Test1, TestFailure)
-// {
-// 	ASSERT_TRUE(true); // to make it pass, change it from false to true.
-// }
-
-// TEST(Test1, TestPass)
-// {
-// 	ASSERT_TRUE(true);
-// }
