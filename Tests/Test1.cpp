@@ -11,20 +11,52 @@
 
 using namespace std;
 
-TEST(Test1, StartingEmpty)
+TEST(Test1, CheckSize4Empty)
 {
 	//ASSERT_TRUE(HelloWorld());
 	Pokedex pdx;
 
 	//check it starts empty as expected
 	EXPECT_EQ(pdx.size(), 0);
+	// EXPECT_EQ(pdx.empty(), 0);
+
+	// ostringstream outStrStr;
+	// outStrStr << pdx;
+	// EXPECT_EQ(outStrStr.str(), "[]");
+
+}
+
+TEST(Test1, CheckEmpty4Empty)
+{
+	//ASSERT_TRUE(HelloWorld());
+	Pokedex pdx;
+
+	//check it starts empty as expected
+	//EXPECT_EQ(pdx.size(), 0);
 	EXPECT_EQ(pdx.empty(), 0);
+
+	// ostringstream outStrStr;
+	// outStrStr << pdx;
+	// EXPECT_EQ(outStrStr.str(), "[]");
+
+}
+
+TEST(Test1, CheckOutStr4Empty)
+{
+	//ASSERT_TRUE(HelloWorld());
+	Pokedex pdx;
+
+	//check it starts empty as expected
+	// EXPECT_EQ(pdx.size(), 0);
+	// EXPECT_EQ(pdx.empty(), 0);
 
 	ostringstream outStrStr;
 	outStrStr << pdx;
 	EXPECT_EQ(outStrStr.str(), "[]");
 
 }
+
+
 
 // TEST(Test1, TestFailure)
 // {
