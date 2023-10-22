@@ -24,7 +24,9 @@ TEST(Test3, LifecycleFor2PokemonEntries)
 	pdx.insert("Charmander");
 
 	//check its size 2 as expected after 2 adds
-	EXPECT_EQ(pdx.size(), 2);
+	//yield better error output to user with making it clear 2 is expected result
+	int expectedResult0 = 2;
+	EXPECT_EQ(pdx.size(), expectedResult0);
 
 	//verifying front and back (2 and only 2 entries present)
 	EXPECT_EQ(pdx.at(0), pdx.front());

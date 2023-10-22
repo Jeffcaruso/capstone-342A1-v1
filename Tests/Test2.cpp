@@ -27,7 +27,9 @@ TEST(Test2, Add1Pokemon)
 	pdx.insert("Pikachu");
 
 	//check its size 1 as expected after 1 add
-	EXPECT_EQ(pdx.size(), 1);
+	//yield better error output to user with making it clear 1 is expected result
+	int expectedResult1 = 1;
+	EXPECT_EQ(pdx.size(), expectedResult1);
 
 	//expecting pdx to not be empty after 1 add
 	EXPECT_FALSE(pdx.empty());
