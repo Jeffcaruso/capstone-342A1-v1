@@ -4,3 +4,8 @@
 
 ## reference:
  - https://github.com/pisan342/ass1-pokedex-starter
+
+ in progress for:
+ - Clangtidy (maybe into build script..?)
+ - Valgrind
+ 
