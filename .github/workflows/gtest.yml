@@ -1,9 +1,9 @@
 name: GTest
 on:
   push:
-    branches: [ main, Begin-valgrindChecking ]
+    branches: [ main, Begin-valgrindChecking, Alt ]
   pull_request:
-    branches: [ main, Begin-valgrindChecking ]
+    branches: [ main, Begin-valgrindChecking, Alt ]
   workflow_dispatch:
 
 jobs:
