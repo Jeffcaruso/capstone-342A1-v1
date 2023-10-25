@@ -41,7 +41,7 @@ jobs:
       run:  sudo apt install -y valgrind
     - uses: actions/checkout@v1
     - name: Run Test
-      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --errors-for-leak-kinds=<definite>' --test_output=all //Tests:APP_test
+      run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --errors-for-leak-kinds=definite' --test_output=all //Tests:APP_test
   Run_Test_2:
     needs: build
     runs-on: ubuntu-latest
