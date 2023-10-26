@@ -22,8 +22,12 @@ jobs:
       run:  sudo apt install nodejs &&
             sudo npm install -g @bazel/bazelisk
     - uses: actions/checkout@v1
-    - name: clang tidy build
-      run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare Src/*.cpp
+    #using the create-output.sh as a guide...
+    - name: g++ compilation
+      run: g++ -g -std=c++14 - Wall -Wextra -Wno-sign-compare Src/*.cpp
+    
+    # - name: clang tidy build
+    #   run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare Src/*.cpp
 
   Run_Test_1:
     needs: build
