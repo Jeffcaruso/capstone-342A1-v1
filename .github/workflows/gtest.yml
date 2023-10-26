@@ -24,14 +24,18 @@ jobs:
     - uses: actions/checkout@v1
     #using the create-output.sh as a guide...
     - name: g++ compilation
-      run: g++ -g -std=c++14 - Wall -Wextra -Wno-sign-compare Src/*.cpp
+      run: cp Src/pokedex.cpp zBuildTest/pokedex.cpp
+      run: cp Inc/pokedex.h zBuildTest/pokedex.h
+      run: g++ -g -std=c++14 - Wall -Wextra -Wno-sign-compare zBuildTest/*.cpp
 
     #for g++ to find the files headers (and code files), they need to be in same directory.
     # so realistically, that would mean either:
-    # 1) copy headers to Src folder too... (bazel uses .cpp for src, so prob ok)
+    # 1) copy headers to Src folder too... (bazel uses .cpp for src, so prob ok) - failed
     # 2) implement all at same level (undoing folders, would have to modify bazel scripts (not preferred))
     # 3) Determine how necessary the other testing is beyond Bazel test + Valgrind which is working great...
         # i.e., even in the example output, it shows leaving some clang tidys not fixed (including not just making a -1 index var for 2 tests using -9,-10).
+
+    # other option is I could just make a folder to use for this, having copies made automatically. i.e., cp src/pokedex.cpp buildTest/pokedex.cpp.
 
     # plan moving forward is: #1 (if this works, and its not a large effort to include, do so); 
             # Then #3 (if this is not really being used that much anyways as a criteria, do we need it at all?);
