@@ -23,7 +23,7 @@ jobs:
             sudo npm install -g @bazel/bazelisk
     - uses: actions/checkout@v1
     - name: clang tidy build
-      run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare src/*.cpp
+      run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare Src/*.cpp
 
   Run_Test_1:
     needs: build
