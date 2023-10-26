@@ -25,7 +25,7 @@ jobs:
     #using the create-output.sh as a guide...
     - name: g++ compilation
       run:  cp Src/pokedex.cpp zBuildTest/pokedex.cpp &&
-            cp Inc/pokedex.h zBuildTest/Inc/pokedex.h &&
+            cp Inc/pokedex.h zBuildTest/pokedex.h &&
             g++ -g -std=c++14 - Wall -Wextra -Wno-sign-compare zBuildTest/*.cpp
 
     #for g++ to find the files headers (and code files), they need to be in same directory.
