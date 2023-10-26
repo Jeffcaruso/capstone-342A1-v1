@@ -17,8 +17,9 @@ bool Pokedex::empty() const
 
 ostream &operator<<(ostream &out, const Pokedex &pdx)
 {
-    //out << "not correct result (intentional)\n";
-    char *lol = (char*) malloc(100);
+    //Memory leak on or off...
+    //char *lol = (char*) malloc(100);
+    
     out << "[]";
     return out;
 }
