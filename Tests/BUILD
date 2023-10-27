@@ -7,7 +7,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -18,7 +18,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -29,7 +29,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -40,7 +40,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -51,7 +51,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -62,7 +62,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib"
+    "//applib:APPLib"
     ],
 )
 
@@ -73,7 +73,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//APPLib",
+    "//applib:APPLib"
     ],
 )
 
