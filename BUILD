@@ -1,20 +1,20 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
-
+load("@rules_cc//cc:defs.bzl", "cc_test")
 
 cc_library(
   name = "APPLib",
   visibility = ["//visibility:public"],
-  hdrs = glob(["**/*.h"]),
+  hdrs = glob(["pokedex.h"]),
 )
 
 cc_library(
   name = "APP_src",
   visibility = ["//visibility:public"],
-  srcs = glob(["**/*.cpp"]),
+  srcs = glob(["pokedex.cpp"]),
   deps = ["//Inc:APPLib"],
 )
 
-load("@rules_cc//cc:defs.bzl", "cc_test")
+
 
 cc_test(
   name = "APP_test",
