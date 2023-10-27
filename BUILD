@@ -4,7 +4,7 @@ load("@rules_cc//cc:defs.bzl", "cc_test")
 cc_library(
   name = "APPLib",
   visibility = ["//visibility:public"],
-  hdrs = glob(["pokedex.h"]),
+  hdrs = glob(["**/*.h"]),
 )
 
 cc_library(
