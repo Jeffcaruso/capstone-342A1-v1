@@ -1,9 +1,9 @@
 name: GTest
 on:
   push:
-    branches: [ main, Alt ]
+    branches: [ main, Alt, Alt2,  Alt3-All-same-level  ]
   pull_request:
-    branches: [ main, Alt ]
+    branches: [ main, Alt, Alt2,  Alt3-All-same-level  ]
   workflow_dispatch:
 
 jobs:
@@ -22,6 +22,30 @@ jobs:
       run:  sudo apt install nodejs &&
             sudo npm install -g @bazel/bazelisk
     - uses: actions/checkout@v1
+    #using the create-output.sh as a guide...
+    - name: g++ compilation
+      run:  g++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare applib/pokedex.cpp building.cpp
+
+    # was at least able to get this part working while not breaking the gTest + bazel. 
+    # The rest will also need to be added as well, but for now, this is a good stopping point it working tonight...
+
+
+    #for g++ to find the files headers (and code files), they need to be in same directory.
+    # so realistically, that would mean either:
+    # 1) copy headers to Src folder too... (bazel uses .cpp for src, so prob ok) - failed
+    # 2) implement all at same level (undoing folders, would have to modify bazel scripts (not preferred))
+    # 3) Determine how necessary the other testing is beyond Bazel test + Valgrind which is working great...
+        # i.e., even in the example output, it shows leaving some clang tidys not fixed (including not just making a -1 index var for 2 tests using -9,-10).
+
+    # other option is I could just make a folder to use for this, having copies made automatically. i.e., cp src/pokedex.cpp buildTest/pokedex.cpp.
+
+    # plan moving forward is: #1 (if this works, and its not a large effort to include, do so); 
+            # Then #3 (if this is not really being used that much anyways as a criteria, do we need it at all?);
+            # last #2 (redoing the Bazel scripts to accomodate that layout change would be relatively time consuming...)
+
+    # - name: clang tidy build
+    #   run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare Src/*.cpp
+
   Run_Test_1:
     needs: build
     runs-on: ubuntu-latest

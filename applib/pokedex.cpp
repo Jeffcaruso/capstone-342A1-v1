@@ -1,4 +1,5 @@
-#include "Inc/pokedex.h"
+//#include "Inc/pokedex.h"
+#include "pokedex.h"  //trying the alternate include approach to get things to maybe work better...
 
 Pokedex::Pokedex()
 {
@@ -19,7 +20,7 @@ ostream &operator<<(ostream &out, const Pokedex &pdx)
 {
     //Memory leak on or off...
     //char *lol = (char*) malloc(100);
-    
+
     out << "[]";
     return out;
 }

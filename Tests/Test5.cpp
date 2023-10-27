@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <gtest/gtest.h>
-#include "Inc/pokedex.h"
+#include "applib/pokedex.h"
 
 using namespace std;
 
