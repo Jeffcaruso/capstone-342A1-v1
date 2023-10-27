@@ -30,6 +30,11 @@ jobs:
     # The rest will also need to be added as well, but for now, this is a good stopping point it working tonight...
 
 
+    #current plan early morning 10/27:
+    # 1) Get other 'old' tests put in her for build... (excluding valgrind...)
+    # 2) Once it works, get rid of the mess of comments directly below this...
+
+
     #for g++ to find the files headers (and code files), they need to be in same directory.
     # so realistically, that would mean either:
     # 1) copy headers to Src folder too... (bazel uses .cpp for src, so prob ok) - failed
