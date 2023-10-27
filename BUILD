@@ -1,3 +1,19 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+
+cc_library(
+  name = "APPLib",
+  visibility = ["//visibility:public"],
+  hdrs = glob(["**/*.h"]),
+)
+
+cc_library(
+  name = "APP_src",
+  visibility = ["//visibility:public"],
+  srcs = glob(["**/*.cpp"]),
+  deps = ["//Inc:APPLib"],
+)
+
 load("@rules_cc//cc:defs.bzl", "cc_test")
 
 cc_test(
@@ -83,3 +99,4 @@ cc_test(
     "//Src:APP_src"
     ],
 )
+
