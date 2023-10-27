@@ -5,14 +5,15 @@ cc_library(
   name = "APPLib",
   visibility = ["//visibility:public"],
   hdrs = glob(["**/*.h"]),
+  srcs = glob(["pokedex.cpp"]),
 )
 
-cc_library(
-  name = "APP_src",
-  visibility = ["//visibility:public"],
-  srcs = glob(["pokedex.cpp"]),
-  deps = ["//Inc:APPLib"],
-)
+# cc_library(
+#   name = "APP_src",
+#   visibility = ["//visibility:public"],
+#   srcs = glob(["pokedex.cpp"]),
+#   deps = ["//Inc:APPLib"],
+# )
 
 
 
@@ -23,8 +24,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -35,8 +35,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -47,8 +46,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -59,8 +57,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -71,8 +68,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -83,8 +79,7 @@ cc_test(
   copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
-    "//Inc:APPLib",
-    "//Src:APP_src"
+    "//Inc:APPLib"
     ],
 )
 
@@ -96,7 +91,6 @@ cc_test(
   deps = [
     "@com_google_googletest//:gtest_main",
     "//Inc:APPLib",
-    "//Src:APP_src"
     ],
 )
 
