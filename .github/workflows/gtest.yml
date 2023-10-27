@@ -26,6 +26,10 @@ jobs:
     - name: g++ compilation
       run:  g++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare pokedex.cpp building.cpp
 
+    # was at least able to get this part working while not breaking the gTest + bazel. 
+    # The rest will also need to be added as well, but for now, this is a good stopping point it working tonight...
+
+
     #for g++ to find the files headers (and code files), they need to be in same directory.
     # so realistically, that would mean either:
     # 1) copy headers to Src folder too... (bazel uses .cpp for src, so prob ok) - failed
