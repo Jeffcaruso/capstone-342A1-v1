@@ -1,4 +1,4 @@
-#include "CODE/pokedex.h" 
+#include "pokedex.h" 
 
 int main()
 {
