@@ -15,8 +15,6 @@ cc_library(
 #   deps = ["//Inc:APPLib"],
 # )
 
-
-
 cc_test(
   name = "APP_test",
   size = "small",
