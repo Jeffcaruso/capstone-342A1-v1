@@ -49,7 +49,7 @@ jobs:
             # last #2 (redoing the Bazel scripts to accomodate that layout change would be relatively time consuming...)
 
     - name: clang tidy build
-      run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare Src/*.cpp
+      run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare applib/*.cpp
 
   Run_Test_1:
     needs: build
