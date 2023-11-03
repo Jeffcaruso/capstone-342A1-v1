@@ -4,177 +4,123 @@
 
 using namespace std;
 
-/**
- *  Pokedex constructor: create empty Pokedex
- */
+// Your code goes here
+
+// initialize variables
+static const int MAX = 10;
+int msize = 0;
+string pokemons[MAX];
+
+// Constructor, initizlize array with empty strings
 Pokedex::Pokedex() {
-  // nothing needed to be added, variables
-  //   already initialized
+  for (int i = 0; i < MAX; i++) {
+    pokemons[i] = "";
+  }
 }
 
-/**
- * gets size of pokeball
- *
- * @return int size
- */
+// return amount of pokemon in array
 int Pokedex::size() const { return msize; }
 
-/**
- * gets maximum amount of pokemons the pokeball
- * can contain
- *
- * @return int maximum size
- */
+// return max amount of pokemon allowed
 int Pokedex::max_size() { return MAX; }
 
-/**
- * shows whether the pokeball is empty
- * or not
- *
- * @return bool isEmpty
- */
-bool Pokedex::empty() const { return msize == 0; }
+// checks to see if array is empty. Returns true if no pokemon, false if there's
+// at least one
+bool Pokedex::empty() const { return (msize == 0); }
 
-/**
- * returns pokemon at index n
- *
- * @param n int index
- *
- * @return string& pokemon
- */
+// returns pokemon at given index. If passed int is out of bounds or if there is
+// no pokemon in that index, an error statment is printed
 const string &Pokedex::at(int n) const {
-  static string error = "error";
+  static const string emptyStr;
 
-  if (n < 0 || n >= msize) {
-    cerr << "no pokemon at index " << n << endl;
-    return error;
+  if (n < 0 || n >= msize || pokemons[n].empty()) {
+    cerr << "Error: Cannot access element at " << n << endl;
+  } else {
+    return pokemons[n];
   }
 
-  return pokemons[n];
+  return emptyStr;
 }
 
-/**
- * gets pokemon at the front of the pokeball
- *
- * @return string& Pokemon at the front
- */
+// returns first pokemon, error statement is printed if array is empty
 const string &Pokedex::front() const {
-  static string error = "error";
-
-  if (msize == 0) {
-    cerr << "no pokemon" << endl;
-    return error;
+  if (empty()) {
+    cerr << "Error: Cannot access front for empty Pokedex" << endl;
   }
 
   return pokemons[0];
 }
 
-/**
- * gets pokemon at the back of the pokeball
- *
- * @return string& Pokemon at the back
- */
+// returns last pokemon, error statement is printed if array is empty
 const string &Pokedex::back() const {
-  static string error = "error";
-
-  if (msize == 0) {
-    cerr << "no pokemon" << endl;
-    return error;
+  if (empty()) {
+    cerr << "Error: Cannot access back for empty Pokedex" << endl;
+  } else {
+    return pokemons[size() - 1];
   }
 
-  return pokemons[msize - 1];
+  return pokemons[0];
 }
 
-/**
- * puts a pokemon into the pokeball
- *
- * @param pokemon string& pokemon
- */
+// inserts a pokemon in the array making sure to stay in alphabetical order.
+// ensures the pokemon is placed correctly and all other values are shifted down
 void Pokedex::insert(const string &pokemon) {
-  int insertIndex = -1; // index of where the pokemon will be added
-  string move[MAX];     // contains pokemon that needs to move
-  // for the newly added pokemon
+  msize++;
+  string tempPokemon = pokemon;
 
-  if (msize == 0) {
-    // if no pokemon in pokeball, just put at the start of array
-    pokemons[0] = pokemon;
-  } else if (msize == MAX) {
-    // pokemon full, show error
-    cerr << "Pokeball full" << endl;
-  } else {
-    for (int i = 0; i < msize; i++) {
-      // finds first index found where a pokemon is aphabetically greater
-      if (pokemons[i] > pokemon && insertIndex == -1) {
-        insertIndex = i;
-      }
+  for (int i = 0; i < size(); i++) {
+    if (i == size() - 1) {
+      pokemons[i] = tempPokemon;
+      break;
+    } else if (tempPokemon > pokemons[i]) {
 
-      // if insertion index found, start recording pokemon that needs to move
-      if (insertIndex > -1) {
-        move[i] = pokemons[i];
-      }
-    }
-
-    // move pokemon if necessary, if not just add the new pokemon at the end
-    if (insertIndex != -1) {
-      pokemons[insertIndex] = pokemon;
-      for (int i = insertIndex; i < msize; i++) {
-        pokemons[i + 1] = move[i];
-      }
-    } else {
-      pokemons[msize] = pokemon;
+    } else if (tempPokemon < pokemons[i]) {
+      string temp = pokemons[i];
+      pokemons[i] = tempPokemon;
+      tempPokemon = temp;
     }
   }
-
-  // only increases current pokeball size if no error was found
-  msize = msize < MAX ? msize + 1 : msize;
 }
 
-/**
- * gets rid of last pokemon
- */
+// removes the pokemon in the back. prints error statement if pokedex is empty
 void Pokedex::pop_back() {
-  if (msize == 0) {
-    cerr << "no pokemons to release" << endl;
+  if (!empty()) {
+    pokemons[size() - 1] = "";
+
+    msize--;
   } else {
-    pokemons[msize - 1] = "";
-    msize = msize - 1;
+    cerr << "Error: Cannot pop_back for empty Pokedex" << endl;
   }
 }
 
-/**
- * gets rid of pokemon at index n
- *
- * @param n int index
- */
+// erases a pokemon on given index. prints error statement if index is out of
+// bounds or there is no pokemon there
 void Pokedex::erase(int n) {
-  if (n < 0 || n >= msize) {
-    cerr << "no pokemon at index " << n << endl;
+  if (n >= size() || n < 0 || pokemons[n].empty()) {
+    cerr << "Error: Cannot erase element at " << n << endl;
   } else {
-    // shift pokemons to the left
-    for (int i = n; i < msize - 1; i++) {
-      pokemons[i] = pokemons[i + 1];
+    pokemons[n] = "";
+
+    for (int i = 0; i < size() - 1; i++) {
+      if (pokemons[i].empty()) {
+        pokemons[i] = pokemons[i + 1];
+        pokemons[i + 1] = "";
+      }
     }
 
-    // get rid of last unshifted pokemon
-    pokemons[msize - 1] = "";
-    msize = msize - 1;
+    msize--;
   }
 }
 
-/**
- * stream of pokeball
- */
+// Creates a string of the array of pokemon for tests in main.
 ostream &operator<<(ostream &out, const Pokedex &pdx) {
   out << "[";
-
   for (int i = 0; i < pdx.size(); i++) {
-    if (i != 0) {
+    out << pdx.pokemons[i];
+    if (i < pdx.size() - 1) {
       out << ", ";
     }
-    out << pdx.at(i);
   }
-
   out << "]";
-
   return out;
 }
