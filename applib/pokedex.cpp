@@ -4,156 +4,91 @@
 
 using namespace std;
 
-bool Pokedex::empty() const {
-    bool isEmpty = true;
-    if (this->msize > 0) {
-        isEmpty = false;
-    }
-    return isEmpty;
-}
-bool Pokedex::empty() const {
-    if (pokemons->empty()) {
-        return true;
-    } else {
-        return false;
-    }
-bool Pokedex::empty() const {
-    return msize == 0:
-}
-const string &Pokedex::back() const {
-    if (this->msize > 0) {  // empty check
-        return this->pokemons[this->msize - 1];
-    }
+// constructor - create empty Pokedex
+Pokedex::Pokedex(){};
 
-    return messNone:
-}
+// Return size
+int Pokedex::size() const { return msize; }
 
+// Return maximum size, capacity of Pokedex
+int Pokedex::max_size() { return MAX; }
 
-static bool isBigger(string strl, string str2) {
-    for (int i = 0; i < strl.size(); i++) {
-        // check to see if there are still characters to compare
-        if (i >= str2.size()) {
-            return false;
-        }
-    }
+// return true if Pokedex is empty
+bool Pokedex::empty() const { return (msize == 0); }
 
-    // getting characters
-    char str1Char = str1.at(i);
-    char str2Char = str2.at(i);
-
-    if (str2Char > str1Char) {
-        return true;
-    } else {
-        return false;
-    }
+// return pokemon at given index
+// undefined behaviour for n < 0 or n >= size
+const string &Pokedex::at(int n) const {
+  if (n >= msize || n < 0) {
+    cerr << "ERROR: Cannot access element at " << n << endl;
+  } else {
+    return pokemons[n];
+  }
+  return pokemons[0];
 }
 
-    return true;
-}; 
-
-
-// constructor 
-Pokedex::Pokedex() {}
-Pokedex::Pokedex() = default;
-
-void Pokedex::pop_back() {
-    if(empty()) {
-        return;
-    }
-    --msize;
-};
-
-void Pokedex::pop_back() {
-    if (!empty()) {
-        --msize;
-    }
-};
-
-// return size
-int Pokedex::size() const {
-    // while the size of the array is a max of 10,
-    // msize is returned as the current actual size
-    return msize;
-}
-
-void Pokedex::insert(const string &pokemon) {
-    if (msize != MAX) {
-        int index = 0;
-
-void Pokedex::pop_back();
-    pokemons[msize - 1] = "";
-    msize--;
-}
-
+// return pokemon at the front, alphabetically first one
 const string &Pokedex::front() const {
-    if (empty()) {
-        cerr << "Error: Unable to access front for empty Pokedex"   << endl;
-        return pokemons[0];
-    }
-    return pokemons[0];
+  if (empty()) {
+    cerr << "ERROR: Cannot access front for empty Pokedex" << endl;
+  }
+  return pokemons[0];
 }
 
-void Pokedex::insert(const string &pokemon) {
-
-    if(size() == MAX) {
-        cerr << "No more available slots!" ;
-        return;
-    }
-
-    pokemons[size()] = pokemon;
-    msize++;
-
-    for(int i = 0; j < size(); j++) {
-        for(int j = i+l; j < size (); j++) {
-            if(pokemons[i] > pokemons[j]) {
-                string temp = pokemons[i];
-                pokemons[i] =  pokemons[j];
-                pokemons[j] = temp;
-            }
-        }
-    }
-    }
-}
-
-int Pokedex::size () const {
-
-    int i = 0;
-    while (! pokemons [i]. empty ()) {
-        ++i;
-}
-    return i;
-
-}
-
-// delete last pokemon
-void Pokedex::pop_back() {
-    pokemons [0] = "";
-    msize -= 1:
-}
-
-void Pokedex::erase(int n) { // erases the element on n^th index, shifts the remaining elements, and reduces the size of pokemons by 1
-    for (int i = 0; i < msize; i++) {
-        if (pokemons[i] == pokemons[n]) {
-            pokemons[n] == "";
-            pokemons[i] = pokemons[i+1];
-        }
-    }
-    msize--;
-}
-
-void Pokedex::insert(const string &pokemon) {
-    if (pokemons[0] == "" && msize == 0) {
-        pokemons[0] = pokemon;
-        msize++;
-        return:
-    }
-}
-
+// return pokemon at the back, alphabetically last one
 const string &Pokedex::back() const {
-    static string oopsie = "Pokedex is empty. \n";
-    if (!(size()>0)) {
-        return oopsie;
-    }
-    return pokemons[size()-1];
-};
+  if (empty()) {
+    cerr << "ERROR: Cannot access back for empty Pokedex" << endl;
+  }
+  return pokemons[msize - 1];
+}
 
+// Add pokemon to Pokedex, keep the Pokedex list sorted
+// Can have multiple pokemon with the same name
+// Pokemon is not inserted if Pokedex is already full
+void Pokedex::insert(const string &pokemon) {
+  if (msize >= MAX) {
+    cerr << "ERROR: Pokedex is full, delete pokemon to add more." << endl;
+    return;
+  }
+  int index;
+  for (index = msize - 1; index >= 0 && pokemons[index] > pokemon; index--) {
+    pokemons[index + 1] = pokemons[index];
+  }
+  pokemons[index + 1] = pokemon;
+  msize++;
+}
+
+// Delete the last element
+void Pokedex::pop_back() {
+  if (empty()) {
+    cerr << "ERROR: Cannot pop_back for empty Pokedex" << endl;
+  } else {
+    msize--;
+  }
+}
+
+// Erase element at location, move other elements as needed
+// undefined behaviour if given index is not valid
+void Pokedex::erase(int n) {
+  if (n >= msize || n < 0) {
+    cerr << "ERROR: Cannot earse element at  " << n << endl;
+    return;
+  }
+  for (int i = n; i < msize; i++) {
+    pokemons[i] = pokemons[i + 1];
+  }
+  msize--;
+}
+
+// insertion operator, so we can use "cout << pdx"
+ostream &operator<<(ostream &out, const Pokedex &pdx) {
+  out << "[";
+  out << pdx.pokemons[0];
+  ;
+  for (int i = 1; i < pdx.size(); i++) {
+    out << ", " << pdx.pokemons[i];
+  }
+  out << "]";
+  return out;
+}
