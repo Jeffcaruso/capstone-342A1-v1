@@ -1,118 +1,180 @@
-/**
- * Pokedex class
- * Pokemon are represented as string objects
- * Add, remove, and print Pokemon in sorted alphabetical order
- *
- * Functions called with invalid parameters return first element in Pokedex
- **/
 
 #include "pokedex.h"
 #include <iostream>
 
 using namespace std;
 
-// Constructor initializes Pokedex to empty strings and size to 0
+/**
+ *  Pokedex constructor: create empty Pokedex
+ */
 Pokedex::Pokedex() {
-  for (int i = 0; i < MAX; i++) {
-    pokemons[i] = "";
-  }
-  msize = 0;
+  // nothing needed to be added, variables
+  //   already initialized
 }
 
-// Returns current size of Pokedex
+/**
+ * gets size of pokeball
+ *
+ * @return int size
+ */
 int Pokedex::size() const { return msize; }
 
-// Returns maximum capacity of Pokedex
+/**
+ * gets maximum amount of pokemons the pokeball
+ * can contain
+ *
+ * @return int maximum size
+ */
 int Pokedex::max_size() { return MAX; }
 
-// Returns true if Pokedex is empty, otherwise false
+/**
+ * shows whether the pokeball is empty
+ * or not
+ *
+ * @return bool isEmpty
+ */
 bool Pokedex::empty() const { return msize == 0; }
 
-// Returns Pokemon at a given index
-// Prints error message if given index is < 0 or > max size and returns the
-// first element
+/**
+ * returns pokemon at index n
+ *
+ * @param n int index
+ *
+ * @return string& pokemon
+ */
 const string &Pokedex::at(int n) const {
+  static string error = "error";
+
   if (n < 0 || n >= msize) {
-    cerr << "Error: Cannot access element at index " << n << endl;
-    return pokemons[0];
+    cerr << "no pokemon at index " << n << endl;
+    return error;
   }
+
   return pokemons[n];
 }
 
-// Returns Pokemon at the front, alphabetically the first
-// Prints error message if Pokedex if empty and returns the first element
+/**
+ * gets pokemon at the front of the pokeball
+ *
+ * @return string& Pokemon at the front
+ */
 const string &Pokedex::front() const {
-  if (empty()) {
-    cerr << "Error: Cannot access front of empty Pokedex" << endl;
-    return pokemons[0];
+  static string error = "error";
+
+  if (msize == 0) {
+    cerr << "no pokemon" << endl;
+    return error;
   }
+
   return pokemons[0];
 }
 
-// Returns Pokemon at the back, alphabetically the last
-// Prints error message if Pokedex is empty and returns the first element
+/**
+ * gets pokemon at the back of the pokeball
+ *
+ * @return string& Pokemon at the back
+ */
 const string &Pokedex::back() const {
-  if (empty()) {
-    cerr << "Error: Cannot access back of empty Pokedex" << endl;
-    return pokemons[0];
+  static string error = "error";
+
+  if (msize == 0) {
+    cerr << "no pokemon" << endl;
+    return error;
   }
+
   return pokemons[msize - 1];
 }
 
-// Inserts Pokemon in alphabetically sorted order
-// Prints error message if Pokedex is full
+/**
+ * puts a pokemon into the pokeball
+ *
+ * @param pokemon string& pokemon
+ */
 void Pokedex::insert(const string &pokemon) {
-  if (msize == MAX) {
-    cerr << "Error: Cannot insert on a full Pokedex" << endl;
-    return;
-  }
+  int insertIndex = -1; // index of where the pokemon will be added
+  string move[MAX];     // contains pokemon that needs to move
+  // for the newly added pokemon
 
-  int index = msize;
-  while (index > 0 && pokemon < pokemons[index - 1]) {
-    pokemons[index] = pokemons[index - 1];
-    index--;
-  }
-  pokemons[index] = pokemon;
-  msize++;
-}
+  if (msize == 0) {
+    // if no pokemon in pokeball, just put at the start of array
+    pokemons[0] = pokemon;
+  } else if (msize == MAX) {
+    // pokemon full, show error
+    cerr << "Pokeball full" << endl;
+  } else {
+    for (int i = 0; i < msize; i++) {
+      // finds first index found where a pokemon is aphabetically greater
+      if (pokemons[i] > pokemon && insertIndex == -1) {
+        insertIndex = i;
+      }
 
-// Deletes Pokemon at the last index
-// Prints error message if Pokedex is empty
-void Pokedex::pop_back() {
-  if (empty()) {
-    cerr << "Error: Cannot delete on an empty Pokedex" << endl;
-    return;
-  }
+      // if insertion index found, start recording pokemon that needs to move
+      if (insertIndex > -1) {
+        move[i] = pokemons[i];
+      }
+    }
 
-  msize--;
-  pokemons[msize] = "";
-}
-
-// Removes Pokemon at a given index
-// Prints error message if invalid index is given
-void Pokedex::erase(int n) {
-  if (n < 0 || n >= msize) {
-    cerr << "Error: Cannot erase element at index " << n << endl;
-    return;
-  }
-
-  for (int i = n; i < msize - 1; i++) {
-    pokemons[i] = pokemons[i + 1];
-  }
-  pokemons[msize - 1] = "";
-  msize--;
-}
-
-// Prints Pokemon names, separated by commas and enclosed with square
-// brackets []
-ostream &operator<<(ostream &out, const Pokedex &pdx) {
-  out << "[";
-  for (int i = 0; i < pdx.size(); i++) {
-    out << pdx.at(i);
-    if (i < pdx.size() - 1) {
-      out << ", ";
+    // move pokemon if necessary, if not just add the new pokemon at the end
+    if (insertIndex != -1) {
+      pokemons[insertIndex] = pokemon;
+      for (int i = insertIndex; i < msize; i++) {
+        pokemons[i + 1] = move[i];
+      }
+    } else {
+      pokemons[msize] = pokemon;
     }
   }
+
+  // only increases current pokeball size if no error was found
+  msize = msize < MAX ? msize + 1 : msize;
+}
+
+/**
+ * gets rid of last pokemon
+ */
+void Pokedex::pop_back() {
+  if (msize == 0) {
+    cerr << "no pokemons to release" << endl;
+  } else {
+    pokemons[msize - 1] = "";
+    msize = msize - 1;
+  }
+}
+
+/**
+ * gets rid of pokemon at index n
+ *
+ * @param n int index
+ */
+void Pokedex::erase(int n) {
+  if (n < 0 || n >= msize) {
+    cerr << "no pokemon at index " << n << endl;
+  } else {
+    // shift pokemons to the left
+    for (int i = n; i < msize - 1; i++) {
+      pokemons[i] = pokemons[i + 1];
+    }
+
+    // get rid of last unshifted pokemon
+    pokemons[msize - 1] = "";
+    msize = msize - 1;
+  }
+}
+
+/**
+ * stream of pokeball
+ */
+ostream &operator<<(ostream &out, const Pokedex &pdx) {
+  out << "[";
+
+  for (int i = 0; i < pdx.size(); i++) {
+    if (i != 0) {
+      out << ", ";
+    }
+    out << pdx.at(i);
+  }
+
   out << "]";
+
   return out;
 }
