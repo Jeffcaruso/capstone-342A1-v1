@@ -53,11 +53,6 @@ public:
   // undefined behaviour if given index is not valid
   void erase(int n);
 
-  // binary search find index of smallest lexographical pokemon greater than
-  // target returns index of smallest pokemon greater than target
-  //  also returns if the target is the same as a pokemon
-  int search(string target);
-
 private:
   // maximum capacity of Pokedex
   static const int MAX = 10;
