@@ -1,70 +1,126 @@
-//#include "Inc/pokedex.h"
-#include "pokedex.h"  //trying the alternate include approach to get things to maybe work better...
 
-Pokedex::Pokedex()
-{
-    msize = 0;
+#include "pokedex.h"
+#include <iostream>
+
+using namespace std;
+
+int search(const string &target);
+
+// empty constructor
+Pokedex::Pokedex() {}
+
+// return current length of array
+int Pokedex::size() const { return msize; }
+
+// Return maximum size/capacity of pokedex
+int Pokedex::max_size() { return MAX; }
+
+// return true if pokedex is empty
+bool Pokedex::empty() const { return msize == 0; }
+
+// return pokemon at the given index
+const string &Pokedex::at(int n) const {
+  if (n < 0 || n > msize) {
+    cerr << "Index out of bounds" << endl;
+    return pokemons[0];
+  }
+
+  return pokemons[n];
 }
 
-int Pokedex::size() const
-{
-    return 0;
+// return pokemon at the front index 0
+const string &Pokedex::front() const { return pokemons[0]; }
+
+// return pokemon at the back
+const string &Pokedex::back() const { return pokemons[msize - 1]; }
+
+// add pokemon to pokedex while keeping pokedex sorted
+// pokemon not inserted if pokedex is full
+void Pokedex::insert(const string &pokemon) {
+  if (msize == 0) {
+    pokemons[0] = pokemon;
+    msize++;
+    return;
+  }
+
+  if (msize == MAX) {
+    cerr << "Pokedex is full" << endl;
+    return;
+  }
+
+  int index = search(pokemon);
+
+  for (int i = msize; i > index; i--) {
+    pokemons[i] = pokemons[i - 1];
+  }
+  msize++;
+  pokemons[index] = pokemon;
 }
 
-bool Pokedex::empty() const
-{
-    return false;
-}
+// binary search find index of smallest lexographical pokemon greater than
+// target returns index of smallest pokemon greater than target
+//  also returns if the target is the same as a pokemon
+int Pokedex::search(string target) {
+  int low = 0;
+  int high = msize;
+  int result = msize;
 
-ostream &operator<<(ostream &out, const Pokedex &pdx)
-{
-    //Memory leak on or off...
-    //char *lol = (char*) malloc(100);
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
 
-    out << "[]";
-    return out;
-}
+    if (pokemons[mid] == target) {
+      return mid;
+    }
 
-// Add pokemon to Pokedex, keep the Pokedex list sorted
-// Can have multiple pokemon with the same name
-// Pokemon is not inserted if Pokedex is already full
-void Pokedex::insert(const string &pokemon)
-{
-    // do nothing...
-    // student code to actually do the work here...
-}
+    if (pokemons[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+      result = mid;
+    }
+  }
 
-// return pokemon at given index
-// undefined behaviour for n < 0 or n >= size
-const string &Pokedex::at(int n) const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL1";
-}
-
-// return pokemon at the front, alphabetically first one
-const string &Pokedex::front() const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL2";
-}
-
-// return pokemon at the front, alphabetically last one
-const string &Pokedex::back() const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL3";
-}
-
-// Erase element at location, move other elements as needed
-// undefined behaviour if given index is not valid
-void Pokedex::erase(int n)
-{
-    // do nothing
+  return result;
 }
 
 // Delete the last element
-void Pokedex::pop_back()
-{
-    // do nothing
+void Pokedex::pop_back() {
+  if (msize > 0) {
+    msize--;
+  } else {
+    cerr << "No Pokemon Remaining" << endl;
+  }
+}
+
+// Erase element at given index and move other elements over
+void Pokedex::erase(int n) {
+  if (n >= msize || n < 0) {
+    cerr << "Index out of bounds" << endl;
+    return;
+  }
+
+  // moves elements down to fill gap
+  for (int i = n; i < msize - 1; i++) {
+    pokemons[i] = pokemons[i + 1];
+  }
+
+  msize--;
+}
+
+// insertion operator, so we can use "cout << pdx"
+ostream &operator<<(ostream &out, const Pokedex &pdx) {
+  if (pdx.empty()) {
+    out << "[]";
+  } else {
+    out << "[";
+
+    out << pdx.at(0);
+
+    for (int i = 1; i < pdx.size(); i++) {
+      out << ", " << pdx.at(i);
+    }
+
+    out << "]";
+  }
+  return out;
 }
