@@ -4,90 +4,105 @@
 
 using namespace std;
 
-// constructor - create empty Pokedex
-Pokedex::Pokedex(){};
+// Default constructor for Pokedex, creates empty Pokedex
+Pokedex::Pokedex() {}
 
-// Return size
+// Returns the size of the Pokedex
 int Pokedex::size() const { return msize; }
 
-// Return maximum size, capacity of Pokedex
+// Returns the maximum size/capacity of Pokedex
 int Pokedex::max_size() { return MAX; }
 
-// return true if Pokedex is empty
-bool Pokedex::empty() const { return (msize == 0); }
+// Returns true if the Pokedex is empty
+bool Pokedex::empty() const { return msize == 0; }
 
-// return pokemon at given index
-// undefined behaviour for n < 0 or n >= size
+// Returns pokemon at given index if valid, returns first element if not
+// Index is invalid if less than zero or greater than or equal to Pokedex size
 const string &Pokedex::at(int n) const {
-  if (n >= msize || n < 0) {
-    cerr << "ERROR: Cannot access element at " << n << endl;
-  } else {
-    return pokemons[n];
+  if (n < 0 || n >= msize) {
+    cerr << "Error: Cannot access element at " << n << endl;
+    return pokemons[0];
   }
-  return pokemons[0];
+  return pokemons[n];
 }
 
-// return pokemon at the front, alphabetically first one
+// Returns pokemon at the front, alphabetically first one
 const string &Pokedex::front() const {
   if (empty()) {
-    cerr << "ERROR: Cannot access front for empty Pokedex" << endl;
+    cerr << "Error: Cannot access front for empty Pokedex" << endl;
   }
   return pokemons[0];
 }
 
-// return pokemon at the back, alphabetically last one
+// Returns pokemon at the back, alphabetically last one
 const string &Pokedex::back() const {
   if (empty()) {
-    cerr << "ERROR: Cannot access back for empty Pokedex" << endl;
+    cerr << "Error: Cannot access back for empty Pokedex" << endl;
   }
   return pokemons[msize - 1];
 }
 
-// Add pokemon to Pokedex, keep the Pokedex list sorted
-// Can have multiple pokemon with the same name
+// Inserts pokemon to Pokedex according to alphabetical order
 // Pokemon is not inserted if Pokedex is already full
 void Pokedex::insert(const string &pokemon) {
-  if (msize >= MAX) {
-    cerr << "ERROR: Pokedex is full, delete pokemon to add more." << endl;
-    return;
+  if (msize == MAX) {
+    cerr << "Error: Cannot insert to a full Pokedex" << endl;
   }
-  int index;
-  for (index = msize - 1; index >= 0 && pokemons[index] > pokemon; index--) {
-    pokemons[index + 1] = pokemons[index];
+  if (empty()) {
+    msize++;
+    pokemons[0] = pokemon;
+  } else {
+    int index = -1;
+    for (int i = 0; i < msize; i++) {
+      if (pokemon < pokemons[i]) {
+        index = 0;
+        break;
+      }
+    }
+    if (index == -1) {
+      pokemons[msize] = pokemon;
+      msize++;
+    } else {
+      msize++;
+      for (int j = msize; j > index; j--) {
+        pokemons[j] = pokemons[j - 1];
+      }
+      pokemons[index] = pokemon;
+    }
   }
-  pokemons[index + 1] = pokemon;
-  msize++;
 }
 
-// Delete the last element
+// Deletes last element if pokedex is not empty
 void Pokedex::pop_back() {
   if (empty()) {
-    cerr << "ERROR: Cannot pop_back for empty Pokedex" << endl;
+    cerr << "Error: Cannot pop_back for empty Pokedex" << endl;
   } else {
-    msize--;
+    msize -= 1;
   }
 }
 
-// Erase element at location, move other elements as needed
-// undefined behaviour if given index is not valid
+// Erases element at location and moves other elements as needed
+// No changes are made if given index is invalid: no element at index
 void Pokedex::erase(int n) {
-  if (n >= msize || n < 0) {
-    cerr << "ERROR: Cannot earse element at  " << n << endl;
-    return;
+  if (n < 0 || n > MAX - 1 || n > msize) {
+    cerr << "Error: Cannot erase element at " << n << endl;
+  } else {
+    for (int i = n; i < msize - 1; i++) {
+      pokemons[n] = pokemons[n + 1];
+    }
+    msize -= 1;
   }
-  for (int i = n; i < msize; i++) {
-    pokemons[i] = pokemons[i + 1];
-  }
-  msize--;
 }
 
-// insertion operator, so we can use "cout << pdx"
+// Insertion operator allows for pokedex to be output using "cout << pdx"
 ostream &operator<<(ostream &out, const Pokedex &pdx) {
+  int index = 0;
   out << "[";
-  out << pdx.pokemons[0];
-  ;
-  for (int i = 1; i < pdx.size(); i++) {
-    out << ", " << pdx.pokemons[i];
+  for (index = 0; index < pdx.size(); index++) {
+    out << pdx.at(index);
+    if (index != pdx.size() - 1) {
+      out << ", ";
+    }
   }
   out << "]";
   return out;
