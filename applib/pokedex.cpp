@@ -6,121 +6,130 @@ using namespace std;
 
 // Your code goes here
 
-// initialize variables
-static const int MAX = 10;
-int msize = 0;
-string pokemons[MAX];
-
-// Constructor, initizlize array with empty strings
-Pokedex::Pokedex() {
-  for (int i = 0; i < MAX; i++) {
-    pokemons[i] = "";
-  }
-}
-
-// return amount of pokemon in array
-int Pokedex::size() const { return msize; }
-
-// return max amount of pokemon allowed
-int Pokedex::max_size() { return MAX; }
-
-// checks to see if array is empty. Returns true if no pokemon, false if there's
-// at least one
-bool Pokedex::empty() const { return (msize == 0); }
-
-// returns pokemon at given index. If passed int is out of bounds or if there is
-// no pokemon in that index, an error statment is printed
+// returns the element in that index
+// if the index is invalid, we return the zeroth element in the array and print an error message
 const string &Pokedex::at(int n) const {
-  static const string emptyStr;
-
-  if (n < 0 || n >= msize || pokemons[n].empty()) {
-    cerr << "Error: Cannot access element at " << n << endl;
-  } else {
+    if(msize - 1 < n || n < 0) {
+        cout << "Error: Cannot access element at " << n << endl;
+        return pokemons[0];
+    }
     return pokemons[n];
-  }
-
-  return emptyStr;
 }
 
-// returns first pokemon, error statement is printed if array is empty
-const string &Pokedex::front() const {
-  if (empty()) {
-    cerr << "Error: Cannot access front for empty Pokedex" << endl;
-  }
-
-  return pokemons[0];
-}
-
-// returns last pokemon, error statement is printed if array is empty
+// returns the last element 
+// if the array is empty then output an error message and return the zeroth index because I couldn't figure out what to return
 const string &Pokedex::back() const {
-  if (empty()) {
-    cerr << "Error: Cannot access back for empty Pokedex" << endl;
-  } else {
-    return pokemons[size() - 1];
-  }
-
-  return pokemons[0];
-}
-
-// inserts a pokemon in the array making sure to stay in alphabetical order.
-// ensures the pokemon is placed correctly and all other values are shifted down
-void Pokedex::insert(const string &pokemon) {
-  msize++;
-  string tempPokemon = pokemon;
-
-  for (int i = 0; i < size(); i++) {
-    if (i == size() - 1) {
-      pokemons[i] = tempPokemon;
-      break;
-    } else if (tempPokemon > pokemons[i]) {
-
-    } else if (tempPokemon < pokemons[i]) {
-      string temp = pokemons[i];
-      pokemons[i] = tempPokemon;
-      tempPokemon = temp;
+    if(empty()) {
+        cerr << "Error: Cannot access back for empty Pokedex" << endl;
+        return pokemons[0];
     }
-  }
+    return pokemons[msize - 1];
 }
 
-// removes the pokemon in the back. prints error statement if pokedex is empty
-void Pokedex::pop_back() {
-  if (!empty()) {
-    pokemons[size() - 1] = "";
-
-    msize--;
-  } else {
-    cerr << "Error: Cannot pop_back for empty Pokedex" << endl;
-  }
+// if the array is empty returns true otherwise false
+bool Pokedex::empty() const {
+    return msize == 0;
 }
 
-// erases a pokemon on given index. prints error statement if index is out of
-// bounds or there is no pokemon there
+// erases the n'th index from the array
+// if the index is invalid then we output an error message
 void Pokedex::erase(int n) {
-  if (n >= size() || n < 0 || pokemons[n].empty()) {
-    cerr << "Error: Cannot erase element at " << n << endl;
-  } else {
-    pokemons[n] = "";
+    if(msize > n && n > -1) {
+        for(int i = n + 1; msize > i; i++) { // moving it to left by one
+            pokemons[i - 1] = pokemons[i];
+        }
 
-    for (int i = 0; i < size() - 1; i++) {
-      if (pokemons[i].empty()) {
-        pokemons[i] = pokemons[i + 1];
-        pokemons[i + 1] = "";
-      }
+        msize--; // decrease the size
     }
-
-    msize--;
-  }
+    else {
+        cerr << "Error: Cannot erase element at " << n << endl;
+    }
 }
 
-// Creates a string of the array of pokemon for tests in main.
-ostream &operator<<(ostream &out, const Pokedex &pdx) {
-  out << "[";
-  for (int i = 0; i < pdx.size(); i++) {
-    out << pdx.pokemons[i];
-    if (i < pdx.size() - 1) {
-      out << ", ";
+// returns the first element of the array
+// if the array is empty then we output an error message and still return the zeroth element because we have to return something and I couldn't figure out what to return
+const string &Pokedex::front() const {
+    if(empty()) {
+        cerr << "Error: Cannot access front for empty Pokedex" << endl;
     }
-  }
-  out << "]";
-  return out;
+    return pokemons[0];
+    
+}
+
+// insert the pokemon to the right spot in order, sorted
+void Pokedex::insert(const string &pokemon) {
+    if(msize < MAX) { // if the array is not full
+        // when array is empty
+        if(msize == 0) {
+            pokemons[0] = pokemon;
+        }
+        else {
+            int insInd = 0; // insert index - where the input pokemon will be inserted at
+            // we find where the insertion will be for our input
+            while(pokemons[insInd] < pokemon && msize > insInd) { 
+                insInd++;
+            }
+
+            // adding to the front of the array
+            if(insInd == 0) {
+                // moving everything by one to the right starting from the end of the array
+                for(int i = msize - 1; i >= 0; i--) {
+                    pokemons[i+1] = pokemons[i];
+                }
+                pokemons[0] = pokemon;
+            }
+
+            // adding to the end of the array
+            else if(insInd == msize) {
+                pokemons[insInd] = pokemon;
+            }
+
+            // adding it to the middle of the array
+            else {
+                for(int i = msize - 1; insInd <= i; i--) {
+                    pokemons[i+1] = pokemons[i];
+                }
+                pokemons[insInd] = pokemon;
+            }
+
+            pokemons[insInd] = pokemon; // adding our input pokemon
+        }
+        msize++; // size gets incremented by 1
+    }
+}
+
+// operator overloading, how we pring the pokemons array
+ostream &operator<<(ostream &out, const Pokedex &pdx) {
+    out << "["; // start
+    int pdxSize = pdx.size();
+    if(pdxSize > 0) { // if there's anything in the array
+        out << pdx.at(0); // for the format we do it this way
+        for(int i = 1; pdxSize > i; i++) {
+            out << ", " << pdx.at(i);
+        }
+    }
+    out << "]"; // end
+    return out; // print
+}
+
+// empty constructor
+Pokedex::Pokedex() {
+
+}
+
+// if the size of the array is greater than one, erases the last one
+// if the array is empty then we output an error message
+void Pokedex::pop_back() {
+    if(empty()) {
+        cerr << "Error: Cannot pop_back for empty Pokedex" << endl;
+    }
+    else {
+        msize--;
+
+    }
+}
+
+// returns the size of the array by using the msize private data member
+int Pokedex::size() const {
+    return msize;
 }

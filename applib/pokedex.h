@@ -53,9 +53,6 @@ public:
   // undefined behaviour if given index is not valid
   void erase(int n);
 
-  // insertion operator, so we can use "cout << pdx"
-  friend ostream &operator<<(ostream &out, const Pokedex &pdx);
-
 private:
   // maximum capacity of Pokedex
   static const int MAX = 10;
@@ -66,5 +63,8 @@ private:
   // current internal size
   int msize = 0;
 };
+
+// insertion operator, so we can use "cout << pdx"
+ostream &operator<<(ostream &out, const Pokedex &pdx);
 
 #endif // POKEDEX_H
