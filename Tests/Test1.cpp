@@ -26,7 +26,7 @@ TEST(Test1, CheckEmpty4Empty)
 	Pokedex pdx;
 
 	//Check empty method. expecting it to be empty
-	EXPECT_EQ(pdx.empty(), 0);
+	EXPECT_TRUE(pdx.empty());
 }
 
 TEST(Test1, CheckOutStr4Empty)
