@@ -1,135 +1,70 @@
-/*
- * Implementation of Pokedex
- * Bruce Duong
- * Pisan 342
- */
+//#include "Inc/pokedex.h"
+#include "pokedex.h"  //trying the alternate include approach to get things to maybe work better...
 
-#include "pokedex.h"
-#include <iostream>
-
-using namespace std;
-
-Pokedex::Pokedex() {
-  // initialize empty pokedex
-  msize = 0;
+Pokedex::Pokedex()
+{
+    msize = 0;
 }
 
-/**
- * Returns number of pokemon currently in pokedex
- */
-int Pokedex::size() const { return msize; }
-
-/**
- * Returns the maximum capacity of the pokedex
- */
-int Pokedex::max_size() { return MAX; }
-
-/**
- * Checks if Pokedex is empty
- * Returns true if empty
- */
-bool Pokedex::empty() const { return msize == 0; }
-
-/**
- * Returns pokemon at a given index
- * Needs to check for invalid input
- */
-const string &Pokedex::at(int n) const {
-  if (n < 0 || n >= msize) {
-    cerr << "Error: Cannot access element at " << n << endl;
-    return pokemons[0];
-  }
-  return pokemons[n];
+int Pokedex::size() const
+{
+    return 0;
 }
 
-/**
- * Return pokemon at the front, alphabetically first one
- */
-const string &Pokedex::front() const {
-  if (empty()) {
-    cerr << "Error: Cannot access front for empty Pokedex" << endl;
-    return pokemons[0];
-  }
-  return pokemons[0];
+bool Pokedex::empty() const
+{
+    return false;
 }
 
-/**
- * Return pokemon at the front, alphabetically last one
- */
-const string &Pokedex::back() const {
-  if (empty()) {
-    cerr << "Error: Cannot access back for empty Pokedex" << endl;
-    return pokemons[0];
-  }
-  return pokemons[msize - 1];
-}
+ostream &operator<<(ostream &out, const Pokedex &pdx)
+{
+    //Memory leak on or off...
+    //char *lol = (char*) malloc(100);
 
-/**
- * Add Pokemon to Pokedex, keep the Pokedex list sorted
- * Multiple pokemon can have the same name
- * If pokedex is already full, do not insert
- */
-void Pokedex::insert(const string &pokemon) {
-  if (msize == MAX) {
-    cerr << "Error: Pokedex is already full" << endl;
-    return;
-  }
-  /*
-   * When inserting a pokemon, you need to find the correct location
-   * alphabetically and then shift all the pokemon that come after it.
-   */
-  int insertionIndex = 0;
-  while (insertionIndex < msize && pokemons[insertionIndex] < pokemon) {
-    insertionIndex++;
-  }
-  for (int i = msize; i > insertionIndex; i--) {
-    // shift elements from the end down
-    pokemons[i] = pokemons[i - 1];
-  }
-  pokemons[insertionIndex] = pokemon;
-  msize++;
-}
-
-/**
- * Delete the last element
- */
-void Pokedex::pop_back() {
-  if (empty()) {
-    cerr << "Error: Cannot pop_back for empty Pokedex" << endl;
-    return;
-  }
-  // when removing, ok to leave old value in place
-  msize--;
-}
-
-/**
- * Erase an element at a specific location, move elements as needed
- * undefined behavior if given index is not valid
- */
-void Pokedex::erase(int n) {
-  if (n < 0 || n > msize) {
-    cerr << "Error: Cannot erase element at " << n << endl;
-    return;
-  }
-  for (int i = n; i < msize; i++) {
-    pokemons[i] = pokemons[i + 1];
-  }
-  msize--;
-}
-
-// insertion operator, so we can use "cout << pdx"
-ostream &operator<<(ostream &out, const Pokedex &pdx) {
-  if (pdx.empty()) {
     out << "[]";
-  } else {
-    out << "[";
-    for (int i = 0; i < pdx.size(); i++) {
-      out << pdx.at(i);
-      if (i < pdx.size() - 1) {
-        out << ", ";
-      }
-    }
-    out << "]";
-  }
-  return out;
+    return out;
+}
+
+// Add pokemon to Pokedex, keep the Pokedex list sorted
+// Can have multiple pokemon with the same name
+// Pokemon is not inserted if Pokedex is already full
+void Pokedex::insert(const string &pokemon)
+{
+    // do nothing...
+    // student code to actually do the work here...
+}
+
+// return pokemon at given index
+// undefined behaviour for n < 0 or n >= size
+const string &Pokedex::at(int n) const
+{
+    // do nothing, return a string that shouldn't be a pokemon name...
+    return "LOL1";
+}
+
+// return pokemon at the front, alphabetically first one
+const string &Pokedex::front() const
+{
+    // do nothing, return a string that shouldn't be a pokemon name...
+    return "LOL2";
+}
+
+// return pokemon at the front, alphabetically last one
+const string &Pokedex::back() const
+{
+    // do nothing, return a string that shouldn't be a pokemon name...
+    return "LOL3";
+}
+
+// Erase element at location, move other elements as needed
+// undefined behaviour if given index is not valid
+void Pokedex::erase(int n)
+{
+    // do nothing
+}
+
+// Delete the last element
+void Pokedex::pop_back()
+{
+    // do nothing
 }
