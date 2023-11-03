@@ -1,0 +1,5 @@
+Note, I am not doing all students for now at least, but am doing a decent sample
+This sample found students that got 100%
+And multiple students that had build errors in their code
+
+Overall, this testing sample was positive in showing that the google test and other testing code is working properly
