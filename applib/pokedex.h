@@ -5,7 +5,7 @@
  * Internally pokedex is an array and all pokemon are kept sorted
  *
  * Calling a function with invalid parameters causes undefined behavior.
- * For our purposes, if a function has been called with invalid parameters
+ * For our puporposes, if a function has been called with invalid parameters
  * and needs to return a value, the first element in the pokedex is returned.
  **/
 
@@ -19,37 +19,38 @@ using namespace std;
 
 class Pokedex {
 public:
-  // Constructor creates empty Pokedex
+  // constructor - create empty Pokedex
   Pokedex();
 
-  // Returns size of Pokedex
+  // Return size
   int size() const;
 
-  // Returns maximum size, capacity of Pokedex
+  // Return maximum size, capacity of Pokedex
   static int max_size();
 
-  // Returns true if the Pokedex is empty
+  // return true if Pokedex is empty
   bool empty() const;
 
-  // Returns pokemon at given index
-  // If given index is n < 0 or n >= size, returns first index
+  // return pokemon at given index
+  // undefined behaviour for n < 0 or n >= size
   const string &at(int n) const;
 
-  // Return pokemon at the front, alphabetically first one
+  // return pokemon at the front, alphabetically first one
   const string &front() const;
 
-  // Return pokemon at the front, alphabetically last one
+  // return pokemon at the front, alphabetically last one
   const string &back() const;
 
-  // Allows pokemon to be added to Pokedex, sorted alphabetically
-  // Does not allow pokemon to be inserted if Pokedex is full
+  // Add pokemon to Pokedex, keep the Pokedex list sorted
+  // Can have multiple pokemon with the same name
+  // Pokemon is not inserted if Pokedex is already full
   void insert(const string &pokemon);
 
-  // Deletes the last element
+  // Delete the last element
   void pop_back();
 
-  // Erases element at location, moves other elements as needed
-  // Index is invalid if there is no element at location
+  // Erase element at location, move other elements as needed
+  // undefined behaviour if given index is not valid
   void erase(int n);
 
 private:
@@ -63,7 +64,7 @@ private:
   int msize = 0;
 };
 
-// Insertion operator allows Pokedex to be output using "cout << pdx"
+// insertion operator, so we can use "cout << pdx"
 ostream &operator<<(ostream &out, const Pokedex &pdx);
 
 #endif // POKEDEX_H
