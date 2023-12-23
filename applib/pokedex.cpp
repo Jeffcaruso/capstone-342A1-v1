@@ -39,21 +39,21 @@ void Pokedex::insert(const string &pokemon)
 const string &Pokedex::at(int n) const
 {
     // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL1";
+    return (std::string) "LOL1";
 }
 
 // return pokemon at the front, alphabetically first one
 const string &Pokedex::front() const
 {
     // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL2";
+    return (std::string) "LOL2";
 }
 
 // return pokemon at the front, alphabetically last one
 const string &Pokedex::back() const
 {
     // do nothing, return a string that shouldn't be a pokemon name...
-    return "LOL3";
+    return (std::string) "LOL3";
 }
 
 // Erase element at location, move other elements as needed
