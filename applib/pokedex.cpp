@@ -1,71 +1,118 @@
-//#include "Inc/pokedex.h"
-#include "pokedex.h"  //trying the alternate include approach to get things to maybe work better...
+/**
+ * Pokedex class
+ * Pokemon are represented as string objects
+ * Add, remove, and print Pokemon in sorted alphabetical order
+ *
+ * Functions called with invalid parameters return first element in Pokedex
+ **/
 
-Pokedex::Pokedex()
-{
-    msize = 0;
+#include "pokedex.h"
+#include <iostream>
+
+using namespace std;
+
+// Constructor initializes Pokedex to empty strings and size to 0
+Pokedex::Pokedex() {
+  for (int i = 0; i < MAX; i++) {
+    pokemons[i] = "";
+  }
+  msize = 0;
 }
 
-int Pokedex::size() const
-{
-    return 0;
+// Returns current size of Pokedex
+int Pokedex::size() const { return msize; }
+
+// Returns maximum capacity of Pokedex
+int Pokedex::max_size() { return MAX; }
+
+// Returns true if Pokedex is empty, otherwise false
+bool Pokedex::empty() const { return msize == 0; }
+
+// Returns Pokemon at a given index
+// Prints error message if given index is < 0 or > max size and returns the
+// first element
+const string &Pokedex::at(int n) const {
+  if (n < 0 || n >= msize) {
+    cerr << "Error: Cannot access element at index " << n << endl;
+    return pokemons[0];
+  }
+  return pokemons[n];
 }
 
-bool Pokedex::empty() const
-{
-    return false;
+// Returns Pokemon at the front, alphabetically the first
+// Prints error message if Pokedex if empty and returns the first element
+const string &Pokedex::front() const {
+  if (empty()) {
+    cerr << "Error: Cannot access front of empty Pokedex" << endl;
+    return pokemons[0];
+  }
+  return pokemons[0];
 }
 
-ostream &operator<<(ostream &out, const Pokedex &pdx)
-{
-    //Memory leak on or off...
-    //char *lol = (char*) malloc(100);
-
-    out << "[]";
-    return out;
+// Returns Pokemon at the back, alphabetically the last
+// Prints error message if Pokedex is empty and returns the first element
+const string &Pokedex::back() const {
+  if (empty()) {
+    cerr << "Error: Cannot access back of empty Pokedex" << endl;
+    return pokemons[0];
+  }
+  return pokemons[msize - 1];
 }
 
-// Add pokemon to Pokedex, keep the Pokedex list sorted
-// Can have multiple pokemon with the same name
-// Pokemon is not inserted if Pokedex is already full
-void Pokedex::insert(const string &pokemon)
-{
-    // do nothing...
-    // student code to actually do the work here...
+// Inserts Pokemon in alphabetically sorted order
+// Prints error message if Pokedex is full
+void Pokedex::insert(const string &pokemon) {
+  if (msize == MAX) {
+    cerr << "Error: Cannot insert on a full Pokedex" << endl;
+    return;
+  }
+
+  int index = msize;
+  while (index > 0 && pokemon < pokemons[index - 1]) {
+    pokemons[index] = pokemons[index - 1];
+    index--;
+  }
+  pokemons[index] = pokemon;
+  msize++;
 }
 
-// return pokemon at given index
-// undefined behaviour for n < 0 or n >= size
-const string &Pokedex::at(int n) const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return (std::string) "LOL1";
+// Deletes Pokemon at the last index
+// Prints error message if Pokedex is empty
+void Pokedex::pop_back() {
+  if (empty()) {
+    cerr << "Error: Cannot delete on an empty Pokedex" << endl;
+    return;
+  }
+
+  msize--;
+  pokemons[msize] = "";
 }
 
-// return pokemon at the front, alphabetically first one
-const string &Pokedex::front() const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return (std::string) "LOL2";
+// Removes Pokemon at a given index
+// Prints error message if invalid index is given
+void Pokedex::erase(int n) {
+  if (n < 0 || n >= msize) {
+    cerr << "Error: Cannot erase element at index " << n << endl;
+    return;
+  }
+
+  for (int i = n; i < msize - 1; i++) {
+    pokemons[i] = pokemons[i + 1];
+  }
+  pokemons[msize - 1] = "";
+  msize--;
 }
 
-// return pokemon at the front, alphabetically last one
-const string &Pokedex::back() const
-{
-    // do nothing, return a string that shouldn't be a pokemon name...
-    return (std::string) "LOL3";
+// Prints Pokemon names, separated by commas and enclosed with square
+// brackets []
+ostream &operator<<(ostream &out, const Pokedex &pdx) {
+  out << "[";
+  for (int i = 0; i < pdx.size(); i++) {
+    out << pdx.at(i);
+    if (i < pdx.size() - 1) {
+      out << ", ";
+    }
+  }
+  out << "]";
+  return out;
 }
-
-// Erase element at location, move other elements as needed
-// undefined behaviour if given index is not valid
-void Pokedex::erase(int n)
-{
-    // do nothing
-}
-
-// Delete the last element
-void Pokedex::pop_back()
-{
-    // do nothing
-}
-
