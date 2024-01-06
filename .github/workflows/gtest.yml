@@ -21,7 +21,6 @@ jobs:
     - name: Install Bazel
       run: sudo npm install -g @bazel/bazelisk
     - uses: actions/checkout@v1
-    #using the create-output.sh as a guide...
     - name: g++ compilation
       run:  g++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare -o bld.out applib/pokedex.cpp building.cpp
     - name: clang tidy build
