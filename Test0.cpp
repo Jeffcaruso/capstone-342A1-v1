@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include "applib/pokedex.h"
 
-using namespace std;
+//using namespace std;
 
 TEST(Test0, TrivialTest)
 {
