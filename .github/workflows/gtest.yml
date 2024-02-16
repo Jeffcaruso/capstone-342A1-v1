@@ -4,7 +4,8 @@ on:
     branches: [ starter, solution ]
   pull_request:
     branches: [ starter, solution ]
-  workflow_dispatch:
+permissions:
+  contents: write
 
 jobs:
   prep_then_run:
