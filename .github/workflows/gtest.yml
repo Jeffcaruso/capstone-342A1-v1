@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  prep_then_run:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +24,7 @@ jobs:
       run: ./a.out
   
   test1:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -36,8 +37,8 @@ jobs:
     - name: Run the project
       run: ./a.out
 
-#######
   test2:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -51,6 +52,7 @@ jobs:
       run: ./a.out
   
   test3:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -64,6 +66,7 @@ jobs:
       run: ./a.out
   
   test4:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -77,6 +80,7 @@ jobs:
       run: ./a.out
   
   test5:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
