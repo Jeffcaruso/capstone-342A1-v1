@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: prep by removal
+      run: rm -f a.out
     - name: Run Install script for GTest
       run:  ./.github/workflows/install-googletest.sh
     - name: Build the project
