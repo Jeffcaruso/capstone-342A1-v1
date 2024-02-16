@@ -16,6 +16,8 @@ jobs:
       run: rm -f a.out
     - name: Run Install script for GTest
       run:  ./.github/workflows/install-googletest.sh
+    - name: remove un-needed gtest files
+      run:  rm -rf googletest
     - name: Build the project
       run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
@@ -27,6 +29,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run Install script for GTest
       run:  ./.github/workflows/install-googletest.sh
+    - name: remove un-needed gtest files
+      run:  rm -rf googletest
     - name: Build the project
       run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
