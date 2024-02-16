@@ -19,7 +19,7 @@ jobs:
     - name: remove un-needed gtest files
       run:  rm -rf googletest
     - name: Build the project
-      run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
+      run: g++ pokedex.cpp Test0.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
       run: ./a.out
   
@@ -32,7 +32,7 @@ jobs:
     - name: remove un-needed gtest files
       run:  rm -rf googletest
     - name: Build the project
-      run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
+      run: g++ pokedex.cpp Test1.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
       run: ./a.out
 
