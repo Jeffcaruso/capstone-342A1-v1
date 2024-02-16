@@ -11,12 +11,16 @@
 
 //using namespace std;
 
-TEST(Test0, TrivialTest)
-{
-	//Make Pokedex class pdx
-    //test the build
-	Pokedex pdx;
+namespace {
+    TEST(Test0, TrivialTest)
+    {
+        //Make Pokedex class pdx
+        //test the build
+        Pokedex pdx;
 
-	//always true
-	EXPECT_EQ(0, 0);
-}
+        //always true
+        EXPECT_EQ(0, 0);
+    }
+
+} // namespace
+
