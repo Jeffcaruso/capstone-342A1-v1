@@ -16,7 +16,7 @@ jobs:
     - name: Build the project
       run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
-      run: g++ pokedex.cpp Test0.cpp -lgtest -lgtest_main -pthread
+      run: ./a.out
   
   test1:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
     - name: Build the project
       run: g++ pokedex.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
-      run: g++ pokedex.cpp Test1.cpp -lgtest -lgtest_main -pthread
+      run: ./a.out
 
   
   
