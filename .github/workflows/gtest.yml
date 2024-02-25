@@ -114,5 +114,3 @@ jobs:
       run: g++ pokedex.cpp Test5.cpp -g -lgtest -lgtest_main -pthread
     - name: Run the project
       run: valgrind ./a.out
-  
-  
