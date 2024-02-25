@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  prep_then_run:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,12 +18,15 @@ jobs:
       run:  ./.github/workflows/install-googletest.sh
     - name: remove un-needed gtest files
       run:  rm -rf googletest
+    - name: Install Valgrind
+      run: sudo apt install -y valgrind
     - name: Build the project
       run: g++ pokedex.cpp Test0.cpp -lgtest -lgtest_main -pthread
     - name: Run the project
-      run: ./a.out
+      run: valgrind ./a.out
   
   test1:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -36,8 +39,8 @@ jobs:
     - name: Run the project
       run: ./a.out
 
-#######
   test2:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -51,6 +54,7 @@ jobs:
       run: ./a.out
   
   test3:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -64,6 +68,7 @@ jobs:
       run: ./a.out
   
   test4:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -77,6 +82,7 @@ jobs:
       run: ./a.out
   
   test5:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -90,134 +96,3 @@ jobs:
       run: ./a.out
   
   
-  
-  
-  
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - uses: actions/checkout@v1
-  #   - name: g++ compilation
-  #     run:  g++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare -o bld.out applib/pokedex.cpp building.cpp
-  #   - name: clang tidy build
-  #     run: clang++ -g -std=c++14 -Wall -Wextra -Wno-sign-compare applib/*.cpp building.cpp
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - name: run it
-  #     run: valgrind --leak-check=full --errors-for-leak-kinds=definite --track-origins=yes --error-exitcode=3 ./bld.out
-
-
-  # Run_Test_1:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - uses: actions/checkout@v1
-  #   - name: Run Test
-  #     run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --leak-check=full --errors-for-leak-kinds=definite --error-exitcode=3' --test_output=all //Tests:APP_test
-  # Run_Test_2:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - uses: actions/checkout@v1
-  #   - name: Run Test
-  #     run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --leak-check=full --errors-for-leak-kinds=definite --error-exitcode=3' --test_output=all //Tests:APP_test_2
-  # Run_Test_3:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - uses: actions/checkout@v1
-  #   - name: Run Test
-  #     run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --leak-check=full --errors-for-leak-kinds=definite --error-exitcode=3' --test_output=all //Tests:APP_test_3
-  # Run_Test_4:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - uses: actions/checkout@v1
-  #   - name: Run Test
-  #     run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --leak-check=full --errors-for-leak-kinds=definite --error-exitcode=3' --test_output=all //Tests:APP_test_4
-  # Run_Test_5:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Clone GTest
-  #     run:  git clone https://github.com/google/googletest.git
-  #   - name: Install gtest manually
-  #     working-directory: ./googletest
-  #     run:  sudo apt install python3-pip &&
-  #           cmake . &&
-  #           make &&
-  #           sudo make install
-  #   - name: Install Bazel
-  #     run: sudo npm install -g @bazel/bazelisk
-  #   - name: Install Valgrind
-  #     run:  sudo apt update;
-  #           sudo apt install -y valgrind
-  #   - uses: actions/checkout@v1
-  #   - name: Run Test
-  #     run:  bazel test --cxxopt=-std=c++14 --verbose_failures --run_under='/usr/bin/valgrind --leak-check=full --errors-for-leak-kinds=definite --error-exitcode=3' --test_output=all //Tests:APP_test_5
-
-      
-      
